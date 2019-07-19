@@ -23,4 +23,30 @@ __email__ = "blottiere.paul@gmail.com"
 __license__ = "GPLv3"
 
 
-from .dockwidget import SnailDockWidget
+import psutil as ps
+import time
+from threading import Thread
+
+from PyQt5 import QtCore
+
+from .logger import SnailLogger
+
+
+class SnailThreadPs(QtCore.QObject, Thread):
+
+    update = QtCore.pyqtSignal()
+
+    def __init__(self):
+        super(QtCore.QObject, self).__init__()
+        super(Thread, self).__init__()
+        self.percent = 0
+
+    def run(self):
+        while True:
+            SnailLogger.log("RUN!!")
+            time.sleep(4)
+
+            percents = ps.cpu_percent(interval=1, percpu=True)
+            self.percent = percents[0]
+
+            self.update.emit()

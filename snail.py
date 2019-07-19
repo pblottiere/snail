@@ -198,6 +198,7 @@ class Snail(object):
 
             if self._dockwidget == None:
                 self._dockwidget = SnailDockWidget()
+                self._dockwidget.setMinimumHeight(350)
 
             # connect to provide cleanup on closing of dockwidget
             self._dockwidget.closingPlugin.connect(self.onClosePlugin)

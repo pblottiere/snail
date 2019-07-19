@@ -23,4 +23,5 @@ __email__ = "blottiere.paul@gmail.com"
 __license__ = "GPLv3"
 
 
-from .dockwidget import SnailDockWidget
+from .logger import SnailLogger
+from .ps import SnailThreadPs

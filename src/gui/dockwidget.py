@@ -28,6 +28,8 @@ import os
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import pyqtSignal
 
+from .tabsystem import SnailTabSystem
+
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dockwidget.ui'))
 
@@ -41,7 +43,7 @@ class SnailDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         super().__init__(parent)
         self.setupUi(self)
 
-        # self._ps = BigoudenTabPs(parent, self.mTabHard)
+        self._tab_system = SnailTabSystem(parent, self.mTabSystem)
 
     def closeEvent(self, event):
         self.closingPlugin.emit()
