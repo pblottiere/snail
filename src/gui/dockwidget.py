@@ -23,13 +23,26 @@ __email__ = "blottiere.paul@gmail.com"
 __license__ = "GPLv3"
 
 
-def classFactory(iface):
-    """Load Snail class from file Snail.
+import os
 
-    :param iface: A QGIS interface instance.
-    :type iface: QgsInterface
-    """
-    #
-    from .snail import Snail
+from PyQt5 import QtWidgets, uic
+from PyQt5.QtCore import pyqtSignal
 
-    return Snail(iface)
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    os.path.dirname(__file__), 'ui/dockwidget.ui'))
+
+
+class SnailDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
+
+    closingPlugin = pyqtSignal()
+
+    def __init__(self, parent=None):
+        """Constructor."""
+        super().__init__(parent)
+        self.setupUi(self)
+
+        # self._ps = BigoudenTabPs(parent, self.mTabHard)
+
+    def closeEvent(self, event):
+        self.closingPlugin.emit()
+        event.accept()

@@ -32,6 +32,7 @@ from .resources import *
 
 # Import the code for the DockWidget
 import os.path
+from .src.gui import SnailDockWidget
 
 
 class Snail(object):
@@ -73,7 +74,7 @@ class Snail(object):
         self.toolbar.setObjectName(u"Snail")
 
         self.pluginIsActive = False
-        self.dockwidget = None
+        self._dockwidget = None
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -176,7 +177,7 @@ class Snail(object):
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
 
-        self.dockwidget.closingPlugin.disconnect(self.onClosePlugin)
+        self._dockwidget.closingPlugin.disconnect(self.onClosePlugin)
         self.pluginIsActive = False
 
     def unload(self):
@@ -195,12 +196,12 @@ class Snail(object):
         if not self.pluginIsActive:
             self.pluginIsActive = True
 
-            # if self.dockwidget == None:
-            #     self.dockwidget = SnailDockWidget()
+            if self._dockwidget == None:
+                self._dockwidget = SnailDockWidget()
 
             # connect to provide cleanup on closing of dockwidget
-            # self.dockwidget.closingPlugin.connect(self.onClosePlugin)
+            self._dockwidget.closingPlugin.connect(self.onClosePlugin)
 
             # show the dockwidget
-            # self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
-            # self.dockwidget.show()
+            self.iface.addDockWidget(Qt.LeftDockWidgetArea, self._dockwidget)
+            self._dockwidget.show()
