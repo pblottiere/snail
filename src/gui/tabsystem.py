@@ -27,7 +27,6 @@ import os
 
 from PyQt5 import QtCore
 from PyQt5 import QtQuick
-from PyQt5 import QtQuickWidgets
 from PyQt5 import QtWidgets
 
 from snail.src.core import SnailLogger
@@ -62,7 +61,7 @@ class SnailTabSystem(QtCore.QObject):
         self._view.setSource(QtCore.QUrl.fromLocalFile(qml))
 
         self._container = QtWidgets.QWidget.createWindowContainer(self._view)
-        self._widget.layout().addWidget(self._container)
+        self._widget.layout().insertWidget(2, self._container, 1)
 
     @QtCore.pyqtProperty(int)
     def max(self):

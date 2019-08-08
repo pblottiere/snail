@@ -38,26 +38,4 @@ ChartView {
     Component.onCompleted: {
         snail.set_series_id(series_id)
     }
-
-    // Timer {
-    //     interval: 100
-    //     running: true
-    //     repeat: false
-    //     onTriggered: snail.setSeriesId(series_id)
-
-    //     // onTriggered: {
-    //     //     worker.sendMessage();
-    //     // }
-    // }
-
-    // WorkerScript {
-    //     id: worker
-
-    //     onMessage: {
-    //         snail.update(series_id)
-    //         // series_id.append(0, 25)
-    //         // series_id.append(1, 50)
-    //         // series_id.append(2, 75)
-    //     }
-    // }
 }

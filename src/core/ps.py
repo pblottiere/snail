@@ -23,8 +23,9 @@ __email__ = "blottiere.paul@gmail.com"
 __license__ = "GPLv3"
 
 
-import psutil as ps
+import os
 import time
+import psutil as ps
 from threading import Thread
 
 from PyQt5 import QtCore
@@ -43,10 +44,7 @@ class SnailThreadPs(QtCore.QObject, Thread):
 
     def run(self):
         while True:
-            SnailLogger.log("RUN!!")
-            time.sleep(4)
-
-            percents = ps.cpu_percent(interval=1, percpu=True)
-            self.percent = percents[0]
-
+            qgis_app = ps.Process(os.getpid())
+            self.percent = qgis_app.cpu_percent(interval=1)
             self.update.emit()
+            time.sleep(2)
