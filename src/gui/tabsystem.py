@@ -61,7 +61,8 @@ class SnailTabSystem(QtCore.QObject):
         self._view.setSource(QtCore.QUrl.fromLocalFile(qml))
 
         self._container = QtWidgets.QWidget.createWindowContainer(self._view)
-        self._widget.layout().insertWidget(2, self._container, 1)
+        self._container.setMinimumHeight(50)
+        self._widget.mChartLayout.addWidget(self._container)
 
     @QtCore.pyqtProperty(int)
     def max(self):
@@ -75,6 +76,7 @@ class SnailTabSystem(QtCore.QObject):
         percent = self._thread.percent
         series = self._series_id
 
+        # update chart
         if self._i == self._max:
             self._values.pop(0)
             self._values.append(percent)
@@ -87,3 +89,6 @@ class SnailTabSystem(QtCore.QObject):
             series.append(self._i, percent)
             self._values.append(percent)
             self._i += 1
+
+        # update instantaneous values
+        self._widget.mCpu.setText(str(percent))

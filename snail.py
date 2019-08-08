@@ -67,7 +67,7 @@ class Snail(object):
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u"&bazinga")
+        self.menu = self.tr(u"&Snail")
 
         # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar(u"Snail")
@@ -184,7 +184,7 @@ class Snail(object):
         """Removes the plugin menu item and icon from QGIS GUI."""
 
         for action in self.actions:
-            self.iface.removePluginMenu(self.tr(u"&bazinga"), action)
+            self.iface.removePluginMenu(self.tr(u"&Snail"), action)
             self.iface.removeToolBarIcon(action)
 
         # remove the toolbar
@@ -198,7 +198,6 @@ class Snail(object):
 
             if self._dockwidget == None:
                 self._dockwidget = SnailDockWidget()
-                self._dockwidget.setMinimumHeight(350)
 
             # connect to provide cleanup on closing of dockwidget
             self._dockwidget.closingPlugin.connect(self.onClosePlugin)

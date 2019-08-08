@@ -43,7 +43,7 @@ class SnailDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         super().__init__(parent)
         self.setupUi(self)
 
-        self._tab_system = SnailTabSystem(parent, self.mTabSystem)
+        self._tab_system = SnailTabSystem(parent, self)
 
     def closeEvent(self, event):
         self.closingPlugin.emit()
