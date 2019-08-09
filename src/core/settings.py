@@ -23,6 +23,32 @@ __email__ = "blottiere.paul@gmail.com"
 __license__ = "GPLv3"
 
 
-from .logger import SnailLogger
-from .ps import SnailThreadPs
-from .settings import SnailSettings
+import enum
+from qgis.core import QgsSettings
+from snail.src.core import SnailLogger
+
+
+class SnailSettings(object):
+
+    class System(enum.Enum):
+
+        DisplayChart = "system/display_chart"
+
+
+    def get(setting, default, type):
+        key = "snail/{}".format(setting.value)
+        value = QgsSettings().value(key, default)
+
+        SnailLogger.log("{}: {}".format(key, str(value)))
+
+        if type==bool:
+            if value == "true" or value == "True":
+                value = True
+            else:
+                value = False
+
+        return value
+
+    def set(setting, value):
+        key = "snail/{}".format(setting.value)
+        QgsSettings().setValue(key, value)

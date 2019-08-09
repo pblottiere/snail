@@ -24,3 +24,4 @@ __license__ = "GPLv3"
 
 
 from .dockwidget import SnailDockWidget
+from .settingswidget import SnailSettingsWidget

@@ -32,7 +32,9 @@ from .resources import *
 
 # Import the code for the DockWidget
 import os.path
+
 from .src.gui import SnailDockWidget
+from .src.gui import SnailSettingsWidget
 
 
 class Snail(object):
@@ -75,6 +77,7 @@ class Snail(object):
 
         self.pluginIsActive = False
         self._dockwidget = None
+        self._settingswidget = None
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -166,12 +169,21 @@ class Snail(object):
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ":/plugins/snail/icon.png"
+        icon_path = ":/plugins/snail/snail.png"
         self.add_action(
             icon_path,
             text=self.tr(u"Snail"),
             callback=self.run,
             parent=self.iface.mainWindow(),
+        )
+
+        icon_path = ":/plugins/snail/settings.png"
+        self.add_action(
+            icon_path,
+            text=self.tr(u"Settings"),
+            callback=self.settings,
+            parent=self.iface.mainWindow(),
+            add_to_toolbar=False
         )
 
     def onClosePlugin(self):
@@ -204,4 +216,12 @@ class Snail(object):
 
             # show the dockwidget
             self.iface.addDockWidget(Qt.LeftDockWidgetArea, self._dockwidget)
+
             self._dockwidget.show()
+
+    def settings(self):
+
+        if not self._settingswidget:
+            self._settingswidget = SnailSettingsWidget()
+
+        self._settingswidget.show()
