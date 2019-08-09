@@ -57,7 +57,10 @@ class SnailTabSettingsSystem(QtCore.QObject):
         self._ram_color = QgsColorButton()
         self._widget.mRamLayout.addWidget(self._ram_color)
 
+        setting = SnailSettings.System.BackgroundColor
+        color = SnailSettings.get(setting, QtGui.QColor("white"))
         self._background_color = QgsColorButton()
+        self._background_color.setColor(QtGui.QColor(color))
         self._widget.mBackgroundLayout.addWidget(self._background_color)
 
         self._axes_color = QgsColorButton()
@@ -71,6 +74,10 @@ class SnailTabSettingsSystem(QtCore.QObject):
         cpu_color = self._cpu_color.color().name()
         setting = SnailSettings.System.CpuColor
         SnailSettings.set(setting, cpu_color)
+
+        background_color = self._background_color.color().name()
+        setting = SnailSettings.System.BackgroundColor
+        SnailSettings.set(setting, background_color)
 
 
 class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):

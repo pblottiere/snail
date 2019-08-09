@@ -58,6 +58,10 @@ class SnailTabSystem(QtCore.QObject):
         self._view.setResizeMode(QtQuick.QQuickView.SizeRootObjectToView)
         self._view.rootContext().setContextProperty("snail", self)
 
+        setting = SnailSettings.System.BackgroundColor
+        color = QtGui.QColor(SnailSettings.get(setting, QtGui.QColor("white")))
+        self._view.setColor(color)
+
         dir_path = os.path.dirname(os.path.realpath(__file__))
         qml = os.path.join(dir_path, "qml", "lines.qml")
         self._view.setSource(QtCore.QUrl.fromLocalFile(qml))
@@ -74,6 +78,12 @@ class SnailTabSystem(QtCore.QObject):
     def cpu_color(self):
         setting = SnailSettings.System.CpuColor
         color = SnailSettings.get(setting, QtGui.QColor("blue").name())
+        return QtGui.QColor(color)
+
+    @QtCore.pyqtProperty(QtGui.QColor)
+    def background_color(self):
+        setting = SnailSettings.System.BackgroundColor
+        color = SnailSettings.get(setting, QtGui.QColor("white").name())
         return QtGui.QColor(color)
 
     @QtCore.pyqtSlot(QtCore.QObject)

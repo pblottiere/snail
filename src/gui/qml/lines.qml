@@ -6,6 +6,7 @@ ChartView {
     objectName: "view"
     antialiasing: true
     legend.visible: false
+    backgroundColor: snail.background_color
     margins.left: 0
     margins.right: 0
     margins.top: 0
