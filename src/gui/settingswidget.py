@@ -24,7 +24,8 @@ __license__ = "GPLv3"
 
 
 import os
-from PyQt5 import QtWidgets, QtCore, uic
+from PyQt5 import QtWidgets, QtCore, uic, QtGui
+from qgis.gui import QgsColorButton
 from snail.src.core import SnailSettings
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -47,10 +48,29 @@ class SnailTabSettingsSystem(QtCore.QObject):
         checkbox = self._widget.mSystemDisplayChart
         checkbox.setChecked(display_chart)
 
+        setting = SnailSettings.System.CpuColor
+        color = SnailSettings.get(setting, QtGui.QColor("blue"))
+        self._cpu_color = QgsColorButton()
+        self._cpu_color.setColor(QtGui.QColor(color))
+        self._widget.mCpuLayout.addWidget(self._cpu_color)
+
+        self._ram_color = QgsColorButton()
+        self._widget.mRamLayout.addWidget(self._ram_color)
+
+        self._background_color = QgsColorButton()
+        self._widget.mBackgroundLayout.addWidget(self._background_color)
+
+        self._axes_color = QgsColorButton()
+        self._widget.mAxesLayout.addWidget(self._axes_color)
+
     def store(self):
         checkbox = self._widget.mSystemDisplayChart
         setting = SnailSettings.System.DisplayChart
         SnailSettings.set(setting, checkbox.isChecked())
+
+        cpu_color = self._cpu_color.color().name()
+        setting = SnailSettings.System.CpuColor
+        SnailSettings.set(setting, cpu_color)
 
 
 class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):

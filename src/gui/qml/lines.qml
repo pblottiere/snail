@@ -13,7 +13,9 @@ ChartView {
     height: 400
 
     LineSeries {
-        id: series_id
+        id: cpu_series
+        color: snail.cpu_color
+        width: 2
         objectName: "series"
         name: "series_name"
         axisX: axisX
@@ -36,6 +38,6 @@ ChartView {
     }
 
     Component.onCompleted: {
-        snail.set_series_id(series_id)
+        snail.set_series_id(cpu_series)
     }
 }

@@ -33,9 +33,10 @@ class SnailSettings(object):
     class System(enum.Enum):
 
         DisplayChart = "system/display_chart"
+        CpuColor = "system/cpu_color"
 
 
-    def get(setting, default, type):
+    def get(setting, default, type=str):
         key = "snail/{}".format(setting.value)
         value = QgsSettings().value(key, default)
 

@@ -26,11 +26,13 @@ __license__ = "GPLv3"
 import os
 
 from PyQt5 import QtCore
+from PyQt5 import QtGui
 from PyQt5 import QtQuick
 from PyQt5 import QtWidgets
 
 from snail.src.core import SnailLogger
 from snail.src.core import SnailThreadPs
+from snail.src.core import SnailSettings
 
 
 class SnailTabSystem(QtCore.QObject):
@@ -67,6 +69,12 @@ class SnailTabSystem(QtCore.QObject):
     @QtCore.pyqtProperty(int)
     def max(self):
         return self._max
+
+    @QtCore.pyqtProperty(QtGui.QColor)
+    def cpu_color(self):
+        setting = SnailSettings.System.CpuColor
+        color = SnailSettings.get(setting, QtGui.QColor("blue").name())
+        return QtGui.QColor(color)
 
     @QtCore.pyqtSlot(QtCore.QObject)
     def set_series_id(self, id):

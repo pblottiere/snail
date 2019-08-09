@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>256</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,18 +32,48 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string>CPU</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="mBackgroundLayout">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Chart background color</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>RAM</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="mAxesLayout">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Axes color</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="mCpuLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>CPU line color</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="mRamLayout">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>RAM line color</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
