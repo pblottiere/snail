@@ -86,6 +86,12 @@ class SnailTabSystem(QtCore.QObject):
         color = SnailSettings.get(setting, QtGui.QColor("white").name())
         return QtGui.QColor(color)
 
+    @QtCore.pyqtProperty(QtGui.QColor)
+    def axis_color(self):
+        setting = SnailSettings.System.AxisColor
+        color = SnailSettings.get(setting, QtGui.QColor("white").name())
+        return QtGui.QColor(color)
+
     @QtCore.pyqtSlot(QtCore.QObject)
     def set_series_id(self, id):
         self._series_id = id

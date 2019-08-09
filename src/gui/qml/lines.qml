@@ -24,18 +24,41 @@ ChartView {
     }
 
     ValueAxis {
-        objectName: "axeY"
+        objectName: "axeX"
         id: axisX
-        visible: false
         min: 0
         max: snail.max
+        color: snail.axis_color
+        labelsColor: snail.axis_color
+        gridLineColor: snail.axis_color
+        minorGridLineColor: snail.axis_color
+        shadesColor: snail.axis_color
+        shadesBorderColor: snail.axis_color
+        visible: true
+        minorGridVisible: false
+        gridVisible: false
+        labelsVisible: false
+        lineVisible: true
+        shadesVisible: false
     }
 
     ValueAxis {
-        objectName: "axeX"
+        objectName: "axeY"
         id: axisY
         min: 0
         max: 100
+        color: snail.axis_color
+        labelsColor: snail.axis_color
+        gridLineColor: snail.axis_color
+        minorGridLineColor: snail.axis_color
+        shadesColor: snail.axis_color
+        shadesBorderColor: snail.axis_color
+        visible: true
+        minorGridVisible: false
+        gridVisible: false
+        labelsVisible: true
+        lineVisible: true
+        shadesVisible: false
     }
 
     Component.onCompleted: {

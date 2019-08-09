@@ -63,7 +63,10 @@ class SnailTabSettingsSystem(QtCore.QObject):
         self._background_color.setColor(QtGui.QColor(color))
         self._widget.mBackgroundLayout.addWidget(self._background_color)
 
+        setting = SnailSettings.System.AxisColor
+        color = SnailSettings.get(setting, QtGui.QColor("white"))
         self._axes_color = QgsColorButton()
+        self._axes_color.setColor(QtGui.QColor(color))
         self._widget.mAxesLayout.addWidget(self._axes_color)
 
     def store(self):
@@ -71,13 +74,17 @@ class SnailTabSettingsSystem(QtCore.QObject):
         setting = SnailSettings.System.DisplayChart
         SnailSettings.set(setting, checkbox.isChecked())
 
-        cpu_color = self._cpu_color.color().name()
+        color = self._cpu_color.color().name()
         setting = SnailSettings.System.CpuColor
-        SnailSettings.set(setting, cpu_color)
+        SnailSettings.set(setting, color)
 
-        background_color = self._background_color.color().name()
+        color = self._background_color.color().name()
         setting = SnailSettings.System.BackgroundColor
-        SnailSettings.set(setting, background_color)
+        SnailSettings.set(setting, color)
+
+        color = self._axes_color.color().name()
+        setting = SnailSettings.System.AxisColor
+        SnailSettings.set(setting, color)
 
 
 class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):

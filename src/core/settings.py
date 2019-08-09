@@ -35,7 +35,7 @@ class SnailSettings(object):
         DisplayChart = "system/display_chart"
         CpuColor = "system/cpu_color"
         BackgroundColor = "system/background_color"
-        AxesColor = "system/axes_color"
+        AxisColor = "system/axis_color"
 
 
     def get(setting, default, type=str):
