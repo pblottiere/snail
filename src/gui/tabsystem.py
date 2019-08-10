@@ -68,7 +68,10 @@ class SnailTabSystem(QtCore.QObject):
 
         self._container = QtWidgets.QWidget.createWindowContainer(self._view)
         self._container.setMinimumHeight(50)
-        self._widget.mChartLayout.addWidget(self._container)
+        layout = self._widget.mChartLayout
+        setting = SnailSettings.System.DisplayChart
+        if SnailSettings.get(setting, True, bool):
+            layout.addWidget(self._container)
 
     @QtCore.pyqtProperty(int)
     def max(self):

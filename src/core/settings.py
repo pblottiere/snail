@@ -45,7 +45,7 @@ class SnailSettings(object):
         SnailLogger.log("{}: {}".format(key, str(value)))
 
         if type==bool:
-            if value == "true" or value == "True":
+            if str(value) == "true" or str(value) == "True":
                 value = True
             else:
                 value = False
