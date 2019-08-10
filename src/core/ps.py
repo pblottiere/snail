@@ -31,6 +31,7 @@ from threading import Thread
 from PyQt5 import QtCore
 
 from .logger import SnailLogger
+from .settings import SnailSettings
 
 
 class SnailThreadPs(QtCore.QObject, Thread):
@@ -42,9 +43,13 @@ class SnailThreadPs(QtCore.QObject, Thread):
         super(Thread, self).__init__()
         self.percent = 0
 
+        setting = SnailSettings.System.RefreshMs
+        self._period_ms = SnailSettings.get(setting, 500, int)/1000
+
     def run(self):
         while True:
             qgis_app = ps.Process(os.getpid())
             self.percent = qgis_app.cpu_percent(interval=1)
             self.update.emit()
-            time.sleep(2)
+
+            time.sleep(self._period_ms)

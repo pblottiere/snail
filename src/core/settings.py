@@ -36,6 +36,7 @@ class SnailSettings(object):
         CpuColor = "system/cpu_color"
         BackgroundColor = "system/background_color"
         AxisColor = "system/axis_color"
+        RefreshMs = "system/refresh_ms"
 
 
     def get(setting, default, type=str):
@@ -49,6 +50,8 @@ class SnailSettings(object):
                 value = True
             else:
                 value = False
+        if type==int:
+            value = int(value)
 
         return value
 
