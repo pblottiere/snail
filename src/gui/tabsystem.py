@@ -100,22 +100,26 @@ class SnailTabSystem(QtCore.QObject):
         self._series_id = id
 
     def update(self):
-        percent = self._thread.percent
+        cpu_percent = self._thread.cpu_percent
+        ram_percent = self._thread.ram_percent
         series = self._series_id
 
         # update chart
         if self._i == self._max:
             self._values.pop(0)
-            self._values.append(percent)
+            self._values.append(cpu_percent)
 
             series.removePoints(0, self._i)
 
             for i in range(0, self._i):
                 series.append(i, self._values[i])
         else:
-            series.append(self._i, percent)
-            self._values.append(percent)
+            series.append(self._i, cpu_percent)
+            self._values.append(cpu_percent)
             self._i += 1
 
         # update instantaneous values
-        self._widget.mCpu.setText(str(percent))
+        self._widget.mCpu.setText(str(cpu_percent))
+
+        ram_percent = '%s' % float('%.2g' % ram_percent)
+        self._widget.mRam.setText(ram_percent)
