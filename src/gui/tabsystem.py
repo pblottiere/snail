@@ -87,10 +87,9 @@ class SnailTabSystem(QtCore.QObject):
 
     @QtCore.pyqtProperty(QtGui.QColor)
     def ram_color(self):
-        # setting = SnailSettings.System.CpuColor
-        # color = SnailSettings.get(setting, QtGui.QColor("blue").name())
-        # return QtGui.QColor(color)
-        return QtGui.QColor("red")
+        setting = SnailSettings.System.RamColor
+        color = SnailSettings.get(setting, QtGui.QColor("blue").name())
+        return QtGui.QColor(color)
 
     @QtCore.pyqtProperty(QtGui.QColor)
     def background_color(self):

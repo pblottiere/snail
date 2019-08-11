@@ -54,7 +54,10 @@ class SnailTabSettingsSystem(QtCore.QObject):
         self._cpu_color.setColor(QtGui.QColor(color))
         self._widget.mCpuLayout.addWidget(self._cpu_color)
 
+        setting = SnailSettings.System.RamColor
+        color = SnailSettings.get(setting, QtGui.QColor("red"))
         self._ram_color = QgsColorButton()
+        self._ram_color.setColor(QtGui.QColor(color))
         self._widget.mRamLayout.addWidget(self._ram_color)
 
         setting = SnailSettings.System.BackgroundColor
@@ -82,6 +85,10 @@ class SnailTabSettingsSystem(QtCore.QObject):
 
         color = self._cpu_color.color().name()
         setting = SnailSettings.System.CpuColor
+        SnailSettings.set(setting, color)
+
+        color = self._ram_color.color().name()
+        setting = SnailSettings.System.RamColor
         SnailSettings.set(setting, color)
 
         color = self._background_color.color().name()

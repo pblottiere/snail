@@ -34,6 +34,7 @@ class SnailSettings(object):
 
         DisplayChart = "system/display_chart"
         CpuColor = "system/cpu_color"
+        RamColor = "system/ram_color"
         BackgroundColor = "system/background_color"
         AxisColor = "system/axis_color"
         RefreshMs = "system/refresh_ms"
