@@ -17,6 +17,7 @@ ChartView {
         id: cpu_series
         color: snail.cpu_color
         width: 2
+        visible: snail.cpu_visible
         objectName: "cpu_series"
         name: "cpu"
         axisX: axisX
@@ -28,6 +29,7 @@ ChartView {
         color: snail.ram_color
         width: 2
         objectName: "ram_series"
+        visible: snail.ram_visible
         name: "ram"
         axisX: axisX
         axisY: axisY

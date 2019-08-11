@@ -58,6 +58,22 @@ class SnailTabSystem(QtCore.QObject):
         self._thread.start()
 
     def init_gui(self):
+        self._cpu_checkbox = QtWidgets.QCheckBox()
+        setting = SnailSettings.System.CpuColor
+        name = SnailSettings.get(setting, QtGui.QColor("blue"))
+        css = "QCheckBox:indicator:checked{{background-color:{}}}".format(name)
+        self._cpu_checkbox.setStyleSheet(css)
+        self._cpu_checkbox.setChecked(True)
+        self._cpu_checkbox.stateChanged.connect(self.fake)
+
+        self._ram_checkbox = QtWidgets.QCheckBox()
+        setting = SnailSettings.System.RamColor
+        name = SnailSettings.get(setting, QtGui.QColor("red"))
+        css = "QCheckBox:indicator:checked{{background-color:{}}}".format(name)
+        self._ram_checkbox.setStyleSheet(css)
+        self._ram_checkbox.setChecked(True)
+        self._ram_checkbox.stateChanged.connect(self.fake)
+
         self._view = QtQuick.QQuickView(self.parent)
         self._view.setResizeMode(QtQuick.QQuickView.SizeRootObjectToView)
         self._view.rootContext().setContextProperty("snail", self)
@@ -76,6 +92,23 @@ class SnailTabSystem(QtCore.QObject):
         setting = SnailSettings.System.DisplayChart
         if SnailSettings.get(setting, True, bool):
             layout.addWidget(self._container)
+
+            self._widget.mCpuLayout.insertWidget(0, self._cpu_checkbox)
+            self._widget.mRamLayout.insertWidget(0, self._ram_checkbox)
+
+    @QtCore.pyqtProperty(bool, notify=fake)
+    def cpu_visible(self, notify=fake):
+        if self._cpu_checkbox:
+            return self._cpu_checkbox.isChecked()
+        else:
+            return True
+
+    @QtCore.pyqtProperty(bool, notify=fake)
+    def ram_visible(self, notify=fake):
+        if self._ram_checkbox:
+            return self._ram_checkbox.isChecked()
+        else:
+            return True
 
     @QtCore.pyqtProperty(int, notify=fake)
     def max(self):

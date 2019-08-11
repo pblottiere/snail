@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
-    <height>255</height>
+    <width>374</width>
+    <height>249</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,11 +26,11 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,1,2">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="mCpuLayout">
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>CPU</string>
+             <string>%CPU</string>
             </property>
            </widget>
           </item>
@@ -53,11 +53,11 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="mRamLayout">
           <item>
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>RAM</string>
+             <string>%RAM</string>
             </property>
            </widget>
           </item>
@@ -80,7 +80,11 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="mChartLayout"/>
+         <layout class="QVBoxLayout" name="mChartLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
         </item>
        </layout>
       </widget>
