@@ -72,11 +72,10 @@ class SnailTabSettingsSystem(QtCore.QObject):
         self._axes_color.setColor(QtGui.QColor(color))
         self._widget.mAxesLayout.addWidget(self._axes_color)
 
-        setting = SnailSettings.System.RefreshMs
-        self._widget.mRefreshMs.setMinimum(100)
-        self._widget.mRefreshMs.setMaximum(100000)
-        ms = SnailSettings.get(setting, 500, int)
-        self._widget.mRefreshMs.setValue(ms)
+        setting = SnailSettings.System.RefreshSec
+        self._widget.mRefreshSec.setMinimum(1)
+        sec = SnailSettings.get(setting, 1, int)
+        self._widget.mRefreshSec.setValue(sec)
 
     def store(self):
         checkbox = self._widget.mSystemDisplayChart
@@ -99,9 +98,9 @@ class SnailTabSettingsSystem(QtCore.QObject):
         setting = SnailSettings.System.AxisColor
         SnailSettings.set(setting, color)
 
-        ms = self._widget.mRefreshMs.value()
-        setting = SnailSettings.System.RefreshMs
-        SnailSettings.set(setting, ms)
+        sec = self._widget.mRefreshSec.value()
+        setting = SnailSettings.System.RefreshSec
+        SnailSettings.set(setting, sec)
 
 
 class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):

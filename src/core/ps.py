@@ -45,8 +45,8 @@ class SnailThreadPs(QtCore.QObject, Thread):
         self.ram_percent = 0
         self.ram_mb = 0
 
-        setting = SnailSettings.System.RefreshMs
-        self._period_ms = SnailSettings.get(setting, 500, int)/1000
+        setting = SnailSettings.System.RefreshSec
+        self._period_sec = SnailSettings.get(setting, 1, int)
 
     def run(self):
         while True:
@@ -56,4 +56,4 @@ class SnailThreadPs(QtCore.QObject, Thread):
             self.ram_mb = qgis_app.memory_info()[0] >> 20
             self.update.emit()
 
-            time.sleep(self._period_ms)
+            time.sleep(self._period_sec)

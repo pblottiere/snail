@@ -36,7 +36,7 @@
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Refresh in ms</string>
+            <string>Refresh in sec</string>
            </property>
           </widget>
          </item>
@@ -54,7 +54,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QSpinBox" name="mRefreshMs"/>
+          <widget class="QSpinBox" name="mRefreshSec"/>
          </item>
         </layout>
        </item>

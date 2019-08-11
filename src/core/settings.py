@@ -37,7 +37,7 @@ class SnailSettings(object):
         RamColor = "system/ram_color"
         BackgroundColor = "system/background_color"
         AxisColor = "system/axis_color"
-        RefreshMs = "system/refresh_ms"
+        RefreshSec = "system/refresh_sec"
 
 
     def get(setting, default, type=str):
