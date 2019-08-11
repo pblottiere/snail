@@ -37,6 +37,8 @@ from snail.src.core import SnailSettings
 
 class SnailTabSystem(QtCore.QObject):
 
+    fake = QtCore.pyqtSignal()
+
     def __init__(self, parent, widget):
         super(SnailTabSystem, self).__init__()
 
@@ -75,29 +77,29 @@ class SnailTabSystem(QtCore.QObject):
         if SnailSettings.get(setting, True, bool):
             layout.addWidget(self._container)
 
-    @QtCore.pyqtProperty(int)
+    @QtCore.pyqtProperty(int, notify=fake)
     def max(self):
         return self._max
 
-    @QtCore.pyqtProperty(QtGui.QColor)
+    @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
     def cpu_color(self):
         setting = SnailSettings.System.CpuColor
         color = SnailSettings.get(setting, QtGui.QColor("blue").name())
         return QtGui.QColor(color)
 
-    @QtCore.pyqtProperty(QtGui.QColor)
+    @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
     def ram_color(self):
         setting = SnailSettings.System.RamColor
         color = SnailSettings.get(setting, QtGui.QColor("blue").name())
         return QtGui.QColor(color)
 
-    @QtCore.pyqtProperty(QtGui.QColor)
+    @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
     def background_color(self):
         setting = SnailSettings.System.BackgroundColor
         color = SnailSettings.get(setting, QtGui.QColor("white").name())
         return QtGui.QColor(color)
 
-    @QtCore.pyqtProperty(QtGui.QColor)
+    @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
     def axis_color(self):
         setting = SnailSettings.System.AxisColor
         color = SnailSettings.get(setting, QtGui.QColor("white").name())
