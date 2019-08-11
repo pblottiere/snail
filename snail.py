@@ -208,7 +208,7 @@ class Snail(object):
         if not self.pluginIsActive:
             self.pluginIsActive = True
 
-            self._dockwidget = SnailDockWidget()
+            self._dockwidget = SnailDockWidget(self.iface)
 
             # connect to provide cleanup on closing of dockwidget
             self._dockwidget.closingPlugin.connect(self.onClosePlugin)

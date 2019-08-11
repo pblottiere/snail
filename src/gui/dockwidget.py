@@ -38,12 +38,12 @@ class SnailDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     closingPlugin = pyqtSignal()
 
-    def __init__(self, parent=None):
+    def __init__(self, iface, parent=None):
         """Constructor."""
         super().__init__(parent)
         self.setupUi(self)
 
-        self._tab_system = SnailTabSystem(parent, self)
+        self._tab_system = SnailTabSystem(parent, self, iface)
 
     def closeEvent(self, event):
         self.closingPlugin.emit()

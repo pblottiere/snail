@@ -24,11 +24,15 @@ __license__ = "GPLv3"
 
 
 import os
+import time
 
 from PyQt5 import QtCore
 from PyQt5 import QtGui
 from PyQt5 import QtQuick
 from PyQt5 import QtWidgets
+
+from qgis.core import Qgis
+from qgis.gui import QgsMessageBar
 
 from snail.src.core import SnailLogger
 from snail.src.core import SnailThreadPs
@@ -39,10 +43,11 @@ class SnailTabSystem(QtCore.QObject):
 
     fake = QtCore.pyqtSignal()
 
-    def __init__(self, parent, widget):
+    def __init__(self, parent, widget, iface):
         super(SnailTabSystem, self).__init__()
 
         self.parent = parent
+        self._iface = iface
         self._widget = widget
         self._cpu_values = []
         self._ram_values = []
@@ -50,6 +55,7 @@ class SnailTabSystem(QtCore.QObject):
         self._max = 100
         self._cpu_series_id = None
         self._ram_series_id = None
+        self._last_time = None
 
         self.init_gui()
 
@@ -185,3 +191,15 @@ class SnailTabSystem(QtCore.QObject):
         ram_percent = '%s' % float('%.2g' % ram_percent)
         self._widget.mRamPercent.setText(ram_percent)
         self._widget.mRamMb.setText(str(ram_mb))
+
+        # check warning limit
+        setting = SnailSettings.System.RamWarning
+        if SnailSettings.get(setting, False, bool):
+            setting = SnailSettings.System.RamWarningLimit
+            limit = SnailSettings.get(setting, 90, int)
+            if float(ram_percent) > limit:
+                msg = "RAM is above limit ({} %)".format(ram_percent)
+
+                if not self._last_time or (time.time() - self._last_time) > 30:
+                    self._iface.messageBar().pushMessage("Snail", msg, Qgis.Warning, 3)
+                    self._last_time = time.time()

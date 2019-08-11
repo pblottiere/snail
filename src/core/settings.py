@@ -38,6 +38,8 @@ class SnailSettings(object):
         BackgroundColor = "system/background_color"
         AxisColor = "system/axis_color"
         RefreshSec = "system/refresh_sec"
+        RamWarning = "system/ram_warning"
+        RamWarningLimit = "system/ram_warning_limit"
 
 
     def get(setting, default, type=str):

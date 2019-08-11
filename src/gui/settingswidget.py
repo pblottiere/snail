@@ -77,6 +77,14 @@ class SnailTabSettingsSystem(QtCore.QObject):
         sec = SnailSettings.get(setting, 1, int)
         self._widget.mRefreshSec.setValue(sec)
 
+        setting = SnailSettings.System.RamWarning
+        activated = SnailSettings.get(setting, False, bool)
+        self._widget.mRamWarning.setChecked(activated)
+
+        setting = SnailSettings.System.RamWarningLimit
+        limit = SnailSettings.get(setting, 90, int)
+        self._widget.mRamWarningLimit.setValue(limit)
+
     def store(self):
         checkbox = self._widget.mSystemDisplayChart
         setting = SnailSettings.System.DisplayChart
@@ -101,6 +109,14 @@ class SnailTabSettingsSystem(QtCore.QObject):
         sec = self._widget.mRefreshSec.value()
         setting = SnailSettings.System.RefreshSec
         SnailSettings.set(setting, sec)
+
+        activated = self._widget.mRamWarning.isChecked()
+        setting = SnailSettings.System.RamWarning
+        SnailSettings.set(setting, activated)
+
+        limit = self._widget.mRamWarningLimit.value()
+        setting = SnailSettings.System.RamWarningLimit
+        SnailSettings.set(setting, limit)
 
 
 class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):
