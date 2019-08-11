@@ -17,8 +17,18 @@ ChartView {
         id: cpu_series
         color: snail.cpu_color
         width: 2
-        objectName: "series"
-        name: "series_name"
+        objectName: "cpu_series"
+        name: "cpu"
+        axisX: axisX
+        axisY: axisY
+    }
+
+    LineSeries {
+        id: ram_series
+        color: snail.ram_color
+        width: 2
+        objectName: "ram_series"
+        name: "ram"
         axisX: axisX
         axisY: axisY
     }
@@ -62,6 +72,7 @@ ChartView {
     }
 
     Component.onCompleted: {
-        snail.set_series_id(cpu_series)
+        snail.set_cpu_series_id(cpu_series)
+        snail.set_ram_series_id(ram_series)
     }
 }

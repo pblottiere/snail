@@ -42,10 +42,12 @@ class SnailTabSystem(QtCore.QObject):
 
         self.parent = parent
         self._widget = widget
-        self._values = []
+        self._cpu_values = []
+        self._ram_values = []
         self._i = 0
         self._max = 100
-        self._series_id = None
+        self._cpu_series_id = None
+        self._ram_series_id = None
 
         self.init_gui()
 
@@ -84,6 +86,13 @@ class SnailTabSystem(QtCore.QObject):
         return QtGui.QColor(color)
 
     @QtCore.pyqtProperty(QtGui.QColor)
+    def ram_color(self):
+        # setting = SnailSettings.System.CpuColor
+        # color = SnailSettings.get(setting, QtGui.QColor("blue").name())
+        # return QtGui.QColor(color)
+        return QtGui.QColor("red")
+
+    @QtCore.pyqtProperty(QtGui.QColor)
     def background_color(self):
         setting = SnailSettings.System.BackgroundColor
         color = SnailSettings.get(setting, QtGui.QColor("white").name())
@@ -96,26 +105,43 @@ class SnailTabSystem(QtCore.QObject):
         return QtGui.QColor(color)
 
     @QtCore.pyqtSlot(QtCore.QObject)
-    def set_series_id(self, id):
-        self._series_id = id
+    def set_cpu_series_id(self, id):
+        self._cpu_series_id = id
+
+    @QtCore.pyqtSlot(QtCore.QObject)
+    def set_ram_series_id(self, id):
+        self._ram_series_id = id
 
     def update(self):
         cpu_percent = self._thread.cpu_percent
         ram_percent = self._thread.ram_percent
-        series = self._series_id
 
         # update chart
         if self._i == self._max:
-            self._values.pop(0)
-            self._values.append(cpu_percent)
+            # cpu
+            self._cpu_values.pop(0)
+            self._cpu_values.append(cpu_percent)
 
-            series.removePoints(0, self._i)
+            self._cpu_series_id.removePoints(0, self._i)
 
             for i in range(0, self._i):
-                series.append(i, self._values[i])
+                self._cpu_series_id.append(i, self._cpu_values[i])
+
+            # ram
+            self._ram_values.pop(0)
+            self._ram_values.append(ram_percent)
+
+            self._ram_series_id.removePoints(0, self._i)
+
+            for i in range(0, self._i):
+                self._ram_series_id.append(i, self._ram_values[i])
         else:
-            series.append(self._i, cpu_percent)
-            self._values.append(cpu_percent)
+            self._cpu_series_id.append(self._i, cpu_percent)
+            self._cpu_values.append(cpu_percent)
+
+            self._ram_series_id.append(self._i, ram_percent)
+            self._ram_values.append(ram_percent)
+
             self._i += 1
 
         # update instantaneous values
