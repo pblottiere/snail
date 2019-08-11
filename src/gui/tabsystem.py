@@ -149,6 +149,7 @@ class SnailTabSystem(QtCore.QObject):
     def update(self):
         cpu_percent = self._thread.cpu_percent
         ram_percent = self._thread.ram_percent
+        ram_mb = self._thread.ram_mb
 
         # update chart
         if self._i == self._max:
@@ -182,4 +183,5 @@ class SnailTabSystem(QtCore.QObject):
         self._widget.mCpu.setText(str(cpu_percent))
 
         ram_percent = '%s' % float('%.2g' % ram_percent)
-        self._widget.mRam.setText(ram_percent)
+        self._widget.mRamPercent.setText(ram_percent)
+        self._widget.mRamMb.setText(str(ram_mb))
