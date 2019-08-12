@@ -93,14 +93,14 @@ class SnailTabSystem(QtCore.QObject):
         self._view.setSource(QtCore.QUrl.fromLocalFile(qml))
 
         self._container = QtWidgets.QWidget.createWindowContainer(self._view)
-        self._container.setMinimumHeight(50)
+        self._container.setMinimumHeight(80)
         layout = self._widget.mChartLayout
         setting = SnailSettings.System.DisplayChart
         if SnailSettings.get(setting, True, bool):
             layout.addWidget(self._container)
 
-            self._widget.mCpuLayout.insertWidget(0, self._cpu_checkbox)
-            self._widget.mRamLayout.insertWidget(0, self._ram_checkbox)
+            self._widget.mGridLayout.addWidget(self._cpu_checkbox, 0, 0)
+            self._widget.mGridLayout.addWidget(self._ram_checkbox, 2, 0)
 
     @QtCore.pyqtProperty(bool, notify=fake)
     def cpu_visible(self, notify=fake):
