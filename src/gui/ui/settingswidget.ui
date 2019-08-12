@@ -54,12 +54,9 @@
           </spacer>
          </item>
          <item>
-          <widget class="QSpinBox" name="mRamWarningLimit"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>  %</string>
+          <widget class="QSpinBox" name="mRamWarningLimit">
+           <property name="suffix">
+            <string>%</string>
            </property>
           </widget>
          </item>
@@ -88,12 +85,9 @@
           </spacer>
          </item>
          <item>
-          <widget class="QSpinBox" name="mRefreshSec"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>sec</string>
+          <widget class="QSpinBox" name="mRefreshSec">
+           <property name="suffix">
+            <string> sec</string>
            </property>
           </widget>
          </item>
