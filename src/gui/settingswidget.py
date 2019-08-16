@@ -67,7 +67,7 @@ class SnailTabSettingsSystem(QtCore.QObject):
         self._widget.mBackgroundLayout.addWidget(self._background_color)
 
         setting = SnailSettings.System.AxisColor
-        color = SnailSettings.get(setting, QtGui.QColor("white"))
+        color = SnailSettings.get(setting, QtGui.QColor("grey"))
         self._axes_color = QgsColorButton()
         self._axes_color.setColor(QtGui.QColor(color))
         self._widget.mAxesLayout.addWidget(self._axes_color)

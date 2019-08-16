@@ -66,16 +66,18 @@ class SnailTabSystem(QtCore.QObject):
     def init_gui(self):
         self._cpu_checkbox = QtWidgets.QCheckBox()
         setting = SnailSettings.System.CpuColor
-        name = SnailSettings.get(setting, QtGui.QColor("blue"))
+        name = SnailSettings.get(setting, QtGui.QColor("blue").name())
         css = "QCheckBox:indicator:checked{{background-color:{}}}".format(name)
+        SnailLogger.log(css)
         self._cpu_checkbox.setStyleSheet(css)
         self._cpu_checkbox.setChecked(True)
         self._cpu_checkbox.stateChanged.connect(self.fake)
 
         self._ram_checkbox = QtWidgets.QCheckBox()
         setting = SnailSettings.System.RamColor
-        name = SnailSettings.get(setting, QtGui.QColor("red"))
+        name = SnailSettings.get(setting, QtGui.QColor("red").name())
         css = "QCheckBox:indicator:checked{{background-color:{}}}".format(name)
+        SnailLogger.log(css)
         self._ram_checkbox.setStyleSheet(css)
         self._ram_checkbox.setChecked(True)
         self._ram_checkbox.stateChanged.connect(self.fake)
@@ -129,7 +131,7 @@ class SnailTabSystem(QtCore.QObject):
     @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
     def ram_color(self):
         setting = SnailSettings.System.RamColor
-        color = SnailSettings.get(setting, QtGui.QColor("blue").name())
+        color = SnailSettings.get(setting, QtGui.QColor("red").name())
         return QtGui.QColor(color)
 
     @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
@@ -141,7 +143,7 @@ class SnailTabSystem(QtCore.QObject):
     @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
     def axis_color(self):
         setting = SnailSettings.System.AxisColor
-        color = SnailSettings.get(setting, QtGui.QColor("white").name())
+        color = SnailSettings.get(setting, QtGui.QColor("grey").name())
         return QtGui.QColor(color)
 
     @QtCore.pyqtSlot(QtCore.QObject)
