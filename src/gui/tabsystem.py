@@ -42,6 +42,7 @@ from snail.src.core import SnailSettings
 class SnailTabSystem(QtCore.QObject):
 
     fake = QtCore.pyqtSignal()
+    y_maximum_updated = QtCore.pyqtSignal(int)
 
     def __init__(self, parent, widget, iface):
         super(SnailTabSystem, self).__init__()
@@ -53,6 +54,7 @@ class SnailTabSystem(QtCore.QObject):
         self._ram_values = []
         self._i = 0
         self._max = 100
+        self._y_maximum = 100
         self._cpu_series_id = None
         self._ram_series_id = None
         self._last_time = None
@@ -118,6 +120,10 @@ class SnailTabSystem(QtCore.QObject):
         else:
             return True
 
+    @QtCore.pyqtProperty(int, notify=y_maximum_updated)
+    def y_maximum(self):
+        return self._y_maximum
+
     @QtCore.pyqtProperty(int, notify=fake)
     def max(self):
         return self._max
@@ -158,6 +164,10 @@ class SnailTabSystem(QtCore.QObject):
         cpu_percent = self._thread.cpu_percent
         ram_percent = self._thread.ram_percent
         ram_mb = self._thread.ram_mb
+
+        if cpu_percent > self._y_maximum:
+            self._y_maximum = cpu_percent
+            self.y_maximum_updated.emit(self._y_maximum)
 
         # update chart
         if self._i == self._max:

@@ -58,7 +58,7 @@ ChartView {
         objectName: "axeY"
         id: axisY
         min: 0
-        max: 100
+        max: snail.y_maximum
         color: snail.axis_color
         labelsColor: snail.axis_color
         gridLineColor: snail.axis_color
