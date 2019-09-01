@@ -33,6 +33,8 @@ from .resources import *
 # Import the code for the DockWidget
 import os.path
 
+from .src.core import SnailDependencies
+from .src.gui import SnailDependenciesWidget
 from .src.gui import SnailDockWidget
 from .src.gui import SnailSettingsWidget
 
@@ -78,6 +80,7 @@ class Snail(object):
         self.pluginIsActive = False
         self._dockwidget = None
         self._settingswidget = None
+        self._dependencies_widget = None
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -169,22 +172,29 @@ class Snail(object):
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
+        deps = SnailDependencies()
+
+        action = self.run
+        if deps.missing():
+            action = self.dependencies
+
         icon_path = ":/plugins/snail/snail.png"
         self.add_action(
             icon_path,
             text=self.tr(u"Snail"),
-            callback=self.run,
+            callback=action,
             parent=self.iface.mainWindow(),
         )
 
         icon_path = ":/plugins/snail/settings.png"
-        self.add_action(
+        action = self.add_action(
             icon_path,
             text=self.tr(u"Settings"),
             callback=self.settings,
             parent=self.iface.mainWindow(),
             add_to_toolbar=False
         )
+        action.setEnabled(False)
 
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
@@ -201,6 +211,12 @@ class Snail(object):
 
         # remove the toolbar
         del self.toolbar
+
+    def dependencies(self):
+        if not self._dependencies_widget:
+            self._dependencies_widget = SnailDependenciesWidget()
+
+        self._dependencies_widget.show()
 
     def run(self):
         """Run method that loads and starts the plugin"""

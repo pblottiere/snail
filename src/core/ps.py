@@ -25,7 +25,6 @@ __license__ = "GPLv3"
 
 import os
 import time
-import psutil as ps
 from threading import Thread
 
 from PyQt5 import QtCore
@@ -49,6 +48,7 @@ class SnailThreadPs(QtCore.QObject, Thread):
         self._period_sec = SnailSettings.get(setting, 1, int)
 
     def run(self):
+        import psutil as ps
         while True:
             qgis_app = ps.Process(os.getpid())
             self.cpu_percent = qgis_app.cpu_percent(interval=1)

@@ -26,3 +26,4 @@ __license__ = "GPLv3"
 from .logger import SnailLogger
 from .ps import SnailThreadPs
 from .settings import SnailSettings
+from .dependencies import SnailDependencies
