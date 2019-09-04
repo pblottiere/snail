@@ -194,7 +194,8 @@ class Snail(object):
             parent=self.iface.mainWindow(),
             add_to_toolbar=False
         )
-        action.setEnabled(False)
+        if not deps.missing():
+            action.setEnabled(True)
 
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
