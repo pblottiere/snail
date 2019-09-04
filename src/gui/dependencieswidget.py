@@ -80,6 +80,9 @@ class SnailDependenciesWidget(QtWidgets.QDialog, FORM_CLASS):
         if not err:
             text += ('<br/><br/><b>Dependencies have been installed with success. '
                      'You have to restart QGIS now.</b>')
+        else:
+            text += ('<br/><br/><b>Dependencies failed to resolve. Snail'
+                     ' plugin cannot be use for now.</b>')
 
         text += '</html>'
         self.mLog.setText(text)

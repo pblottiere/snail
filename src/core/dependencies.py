@@ -54,7 +54,7 @@ class SnailDependencies(object):
 
     def resolve(self, dep):
         error = False
-        output = None
+        output = b''
         cmd = ["python3", "-m", "pip", "install", dep, "--user"]
 
         try:

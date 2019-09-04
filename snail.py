@@ -216,7 +216,7 @@ class Snail(object):
 
     def dependencies(self):
         if not self._dependencies_widget:
-            self._dependencies_widget = SnailDependenciesWidget()
+            self._dependencies_widget = SnailDependenciesWidget(self.iface.mainWindow())
 
         self._dependencies_widget.show()
 
