@@ -59,7 +59,10 @@ class SnailDependencies(object):
 
         try:
             output = subprocess.check_output(cmd)
-        except CalledProcessError:
-            error = True
+        except subprocess.CalledProcessError:
+            try:
+                importlib.import_module(dep)
+            except ModuleNotFoundError:
+                error = True
 
         return [error, ' '.join(cmd), output.decode('utf-8')]
