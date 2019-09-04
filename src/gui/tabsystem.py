@@ -70,7 +70,6 @@ class SnailTabSystem(QtCore.QObject):
         setting = SnailSettings.System.CpuColor
         name = SnailSettings.get(setting, QtGui.QColor("blue").name())
         css = "QCheckBox:indicator:checked{{background-color:{}}}".format(name)
-        SnailLogger.log(css)
         self._cpu_checkbox.setStyleSheet(css)
         self._cpu_checkbox.setChecked(True)
         self._cpu_checkbox.stateChanged.connect(self.fake)
@@ -79,7 +78,6 @@ class SnailTabSystem(QtCore.QObject):
         setting = SnailSettings.System.RamColor
         name = SnailSettings.get(setting, QtGui.QColor("red").name())
         css = "QCheckBox:indicator:checked{{background-color:{}}}".format(name)
-        SnailLogger.log(css)
         self._ram_checkbox.setStyleSheet(css)
         self._ram_checkbox.setChecked(True)
         self._ram_checkbox.stateChanged.connect(self.fake)

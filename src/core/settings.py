@@ -46,8 +46,6 @@ class SnailSettings(object):
         key = "snail/{}".format(setting.value)
         value = QgsSettings().value(key, default)
 
-        SnailLogger.log("{}: {}".format(key, str(value)))
-
         if type==bool:
             if str(value) == "true" or str(value) == "True":
                 value = True
