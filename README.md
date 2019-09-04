@@ -18,7 +18,7 @@ Once you have installed `Snail` with the Plugin Manager tool in QGIS, a last
 step is necessary to have a fully operational plugin. Indeed, some Python
 modules are necessary and have to be installed.
 
-Of course, the dependency may be installed manually with `pip`, '`apt-get`,
+Of course, the dependency may be installed manually with `pip`, `apt-get`,
 `pacman` or others, but Snail provides an embedded solution too. Actually, if
 a package is missing, then the next window will be opened:
 
