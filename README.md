@@ -8,7 +8,7 @@ Snail is a QGIS plugin allowing to monitor performances:
 More functionalities will come in time.
 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/pblottiere/snail/blob/master/docs/snail.png">
+  <img width="400" src="https://github.com/pblottiere/snail/blob/master/docs/snail.png">
 </p>
 
 
@@ -23,7 +23,7 @@ Of course, the dependency may be installed manually with `pip`, '`apt-get`,
 a package is missing, then the next window will be opened:
 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/pblottiere/snail/blob/master/docs/deps.png">
+  <img width="400" src="https://github.com/pblottiere/snail/blob/master/docs/deps.png">
 </p>
 
 If you click on `Yes`, the `pip install -user` command will be runned to
@@ -38,5 +38,5 @@ customize some colors as well as defining an amount of RAM above which a
 warning message is displayed periodically.
 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/pblottiere/snail/blob/master/docs/settings.png">
+  <img width="400" src="https://github.com/pblottiere/snail/blob/master/docs/settings.png">
 </p>
