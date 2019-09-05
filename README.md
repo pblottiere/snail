@@ -30,6 +30,11 @@ If you click on `Yes`, the `pip install -user` command will be runned to
 install lacking dependencies. It has been tested on Windows and Archlinux. Once
 dependencies have been installed, you have to restart QGIS to use Snail.
 
+On Windows, no additional installation steps are required. However, on
+GNU/Linux platforms, you may need to install some packages necessary for
+drawing QML charts. For example, on Archlinux, the `qt5-charts` package is
+required.
+
 
 ## Settings
 
