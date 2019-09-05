@@ -14,10 +14,10 @@ version=0.1
 author=Paul Blottiere
 email=blottiere.paul@gmail.com
 
-about=Provide a brief description of the plugin and its purpose.
+about=Monitors RAM and CPU.
 
-tracker=http://bugs
-repository=http://repo
+tracker=https://github.com/pblottiere/snail/issues
+repository=https://github.com/pblottiere/snail
 # End of mandatory metadata
 
 # Recommended items:
