@@ -28,7 +28,7 @@ repository=https://github.com/pblottiere/snail
 # Tags are comma separated with spaces allowed
 tags=python
 
-homepage=http://homepage
+homepage=https://github.com/pblottiere/snail
 category=Plugins
 icon=icon.png
 # experimental flag
