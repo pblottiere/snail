@@ -14,6 +14,8 @@ More functionalities will come in time.
 
 ## Installation
 
+#### Python dependencies
+
 Once you have installed `Snail` with the Plugin Manager tool in QGIS, a last
 step is necessary to have a fully operational plugin. Indeed, some Python
 modules are necessary and have to be installed.
@@ -29,6 +31,9 @@ a package is missing, then the next window will be opened:
 If you click on `Yes`, the `pip install -user` command will be runned to
 install lacking dependencies. It has been tested on Windows and Archlinux. Once
 dependencies have been installed, you have to restart QGIS to use Snail.
+
+
+#### Qt5 QML charts module
 
 On Windows, no additional installation steps are required. However, on
 GNU/Linux platforms, you may need to install some packages necessary for
