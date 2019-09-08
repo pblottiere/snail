@@ -36,9 +36,11 @@ dependencies have been installed, you have to restart QGIS to use Snail.
 #### Qt5 QML charts module
 
 On Windows, no additional installation steps are required. However, on
-GNU/Linux platforms, you may need to install some packages necessary for
-drawing QML charts. For example, on Archlinux, the `qt5-charts` package is
-required.
+GNU/Linux platforms, you may need to install some more packages necessary for
+drawing QML charts. For example:
+
+- Archlinux: `qt5-charts`
+- Debian: `python3-pyqt5.qtquick`
 
 
 ## Settings
