@@ -198,6 +198,10 @@ class Snail(object):
         if not deps.missing():
             action.setEnabled(True)
 
+        self._dockwidget = SnailDockWidget(self.iface)
+        self._dockwidget.closingPlugin.connect(self.onClosePlugin)
+        self.iface.addDockWidget(Qt.LeftDockWidgetArea, self._dockwidget)
+
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
 
@@ -210,6 +214,9 @@ class Snail(object):
         for action in self.actions:
             self.iface.removePluginMenu(self.tr(u"&Snail"), action)
             self.iface.removeToolBarIcon(action)
+
+        if self._dockwidget:
+            self.iface.removeDockWidget(self._dockwidget)
 
         # remove the toolbar
         del self.toolbar
@@ -225,15 +232,6 @@ class Snail(object):
 
         if not self.pluginIsActive:
             self.pluginIsActive = True
-
-            self._dockwidget = SnailDockWidget(self.iface)
-
-            # connect to provide cleanup on closing of dockwidget
-            self._dockwidget.closingPlugin.connect(self.onClosePlugin)
-
-            # show the dockwidget
-            self.iface.addDockWidget(Qt.LeftDockWidgetArea, self._dockwidget)
-
             self._dockwidget.show()
 
     def settings(self):
