@@ -48,28 +48,16 @@ class SnailTabSettingsSystem(QtCore.QObject):
         checkbox = self._widget.mSystemDisplayChart
         checkbox.setChecked(display_chart)
 
-        setting = SnailSettings.System.CpuColor
-        color = SnailSettings.get(setting, QtGui.QColor("blue"))
         self._cpu_color = QgsColorButton()
-        self._cpu_color.setColor(QtGui.QColor(color))
         self._widget.mCpuLayout.addWidget(self._cpu_color)
 
-        setting = SnailSettings.System.RamColor
-        color = SnailSettings.get(setting, QtGui.QColor("red"))
         self._ram_color = QgsColorButton()
-        self._ram_color.setColor(QtGui.QColor(color))
         self._widget.mRamLayout.addWidget(self._ram_color)
 
-        setting = SnailSettings.System.BackgroundColor
-        color = SnailSettings.get(setting, QtGui.QColor("white"))
         self._background_color = QgsColorButton()
-        self._background_color.setColor(QtGui.QColor(color))
         self._widget.mBackgroundLayout.addWidget(self._background_color)
 
-        setting = SnailSettings.System.AxisColor
-        color = SnailSettings.get(setting, QtGui.QColor("grey"))
         self._axes_color = QgsColorButton()
-        self._axes_color.setColor(QtGui.QColor(color))
         self._widget.mAxesLayout.addWidget(self._axes_color)
 
         setting = SnailSettings.System.RefreshSec
@@ -84,6 +72,25 @@ class SnailTabSettingsSystem(QtCore.QObject):
         setting = SnailSettings.System.RamWarningLimit
         limit = SnailSettings.get(setting, 90, int)
         self._widget.mRamWarningLimit.setValue(limit)
+
+        self.read_settings()
+
+    def read_settings(self):
+        setting = SnailSettings.System.CpuColor
+        color = SnailSettings.get(setting, QtGui.QColor("blue"))
+        self._cpu_color.setColor(QtGui.QColor(color))
+
+        setting = SnailSettings.System.RamColor
+        color = SnailSettings.get(setting, QtGui.QColor("red"))
+        self._ram_color.setColor(QtGui.QColor(color))
+
+        setting = SnailSettings.System.BackgroundColor
+        color = SnailSettings.get(setting, QtGui.QColor("white"))
+        self._background_color.setColor(QtGui.QColor(color))
+
+        setting = SnailSettings.System.AxisColor
+        color = SnailSettings.get(setting, QtGui.QColor("grey"))
+        self._axes_color.setColor(QtGui.QColor(color))
 
     def store(self):
         checkbox = self._widget.mSystemDisplayChart
@@ -126,6 +133,13 @@ class SnailTabSettingsSystem(QtCore.QObject):
     def cpu_color(self, color):
         pass
 
+    @property
+    def ram_color(self):
+        return self._ram_color.color().name()
+
+    @ram_color.setter
+    def ram_color(self, color):
+        pass
 
 class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):
 
@@ -135,6 +149,7 @@ class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):
         super().__init__(parent)
         self.setupUi(self)
 
+        self.parent = parent
         self._tab_system = SnailTabSettingsSystem(parent, self)
         self.mButtons.button(QtWidgets.QDialogButtonBox.Apply).clicked.connect(self.apply)
         self.mButtons.button(QtWidgets.QDialogButtonBox.Cancel).clicked.connect(self.cancel)
@@ -142,10 +157,12 @@ class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):
     def cancel(self):
         snapshot = SnailSettings.Snapshot()
         self.updated.emit(snapshot)
+        self._tab_system.read_settings()
 
     def apply(self):
         snapshot = SnailSettings.Snapshot()
         snapshot.cpu_color = self._tab_system.cpu_color
+        snapshot.ram_color = self._tab_system.ram_color
         self.updated.emit(snapshot)
 
     def accept(self):

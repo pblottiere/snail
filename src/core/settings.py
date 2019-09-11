@@ -39,6 +39,9 @@ class SnailSettings(object):
             name = SnailSettings.get(setting, QtGui.QColor("blue").name())
             self.cpu_color = name
 
+            setting = SnailSettings.System.RamColor
+            name = SnailSettings.get(setting, QtGui.QColor("red").name())
+            self.ram_color = name
 
     class System(enum.Enum):
 
