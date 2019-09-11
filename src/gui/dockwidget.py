@@ -45,6 +45,9 @@ class SnailDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         self._tab_system = SnailTabSystem(parent, self, iface)
 
+    def read_settings(self, settings=None):
+        self._tab_system.read_settings(settings)
+
     def closeEvent(self, event):
         self.closingPlugin.emit()
         event.accept()

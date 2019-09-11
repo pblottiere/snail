@@ -24,11 +24,21 @@ __license__ = "GPLv3"
 
 
 import enum
+from PyQt5 import QtGui
 from qgis.core import QgsSettings
 from snail.src.core import SnailLogger
 
 
 class SnailSettings(object):
+
+
+    class Snapshot(object):
+
+        def __init__(self):
+            setting = SnailSettings.System.CpuColor
+            name = SnailSettings.get(setting, QtGui.QColor("blue").name())
+            self.cpu_color = name
+
 
     class System(enum.Enum):
 
@@ -40,7 +50,6 @@ class SnailSettings(object):
         RefreshSec = "system/refresh_sec"
         RamWarning = "system/ram_warning"
         RamWarningLimit = "system/ram_warning_limit"
-
 
     def get(setting, default, type=str):
         key = "snail/{}".format(setting.value)

@@ -118,15 +118,37 @@ class SnailTabSettingsSystem(QtCore.QObject):
         setting = SnailSettings.System.RamWarningLimit
         SnailSettings.set(setting, limit)
 
+    @property
+    def cpu_color(self):
+        return self._cpu_color.color().name()
+
+    @cpu_color.setter
+    def cpu_color(self, color):
+        pass
+
 
 class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):
+
+    updated = QtCore.pyqtSignal(SnailSettings.Snapshot)
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
 
         self._tab_system = SnailTabSettingsSystem(parent, self)
+        self.mButtons.button(QtWidgets.QDialogButtonBox.Apply).clicked.connect(self.apply)
+        self.mButtons.button(QtWidgets.QDialogButtonBox.Cancel).clicked.connect(self.cancel)
+
+    def cancel(self):
+        snapshot = SnailSettings.Snapshot()
+        self.updated.emit(snapshot)
+
+    def apply(self):
+        snapshot = SnailSettings.Snapshot()
+        snapshot.cpu_color = self._tab_system.cpu_color
+        self.updated.emit(snapshot)
 
     def accept(self):
         self._tab_system.store()
+        self.apply()
         self.close()

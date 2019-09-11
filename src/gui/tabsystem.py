@@ -59,11 +59,20 @@ class SnailTabSystem(QtCore.QObject):
         self._ram_series_id = None
         self._last_time = None
 
+        self._settings = None
+        self.read_settings()
         self.init_gui()
 
         self._thread = SnailThreadPs()
         self._thread.update.connect(self.update)
         self._thread.start()
+
+    def read_settings(self, settings=None):
+        if settings:
+            self._settings = settings
+        else:
+            self._settings = SnailSettings.Snapshot()
+        self.fake.emit()
 
     def init_gui(self):
         self._cpu_checkbox = QtWidgets.QCheckBox()
@@ -128,9 +137,7 @@ class SnailTabSystem(QtCore.QObject):
 
     @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
     def cpu_color(self):
-        setting = SnailSettings.System.CpuColor
-        color = SnailSettings.get(setting, QtGui.QColor("blue").name())
-        return QtGui.QColor(color)
+        return QtGui.QColor(self._settings.cpu_color)
 
     @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
     def ram_color(self):

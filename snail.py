@@ -78,9 +78,16 @@ class Snail(object):
         self.toolbar.setObjectName(u"Snail")
 
         self.pluginIsActive = False
-        self._dockwidget = None
-        self._settingswidget = None
-        self._dependencies_widget = None
+
+        self._dockwidget = SnailDockWidget(self.iface)
+        self._dockwidget.closingPlugin.connect(self.onClosePlugin)
+        self._dependencies_widget = SnailDependenciesWidget(self.iface.mainWindow())
+
+        self._settingswidget = SnailSettingsWidget()
+        self._settingswidget.updated.connect(self.settings_updated)
+
+    def settings_updated(self, settings):
+        self._dockwidget.read_settings(settings)
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -184,6 +191,7 @@ class Snail(object):
             text=self.tr(u"Snail"),
             callback=action,
             parent=self.iface.mainWindow(),
+            add_to_toolbar=True
         )
 
         icon_path = ":/plugins/snail/settings.png"
@@ -198,8 +206,6 @@ class Snail(object):
         if not deps.missing():
             action.setEnabled(True)
 
-        self._dockwidget = SnailDockWidget(self.iface)
-        self._dockwidget.closingPlugin.connect(self.onClosePlugin)
         self.iface.addDockWidget(Qt.LeftDockWidgetArea, self._dockwidget)
 
     def onClosePlugin(self):
@@ -222,9 +228,6 @@ class Snail(object):
         del self.toolbar
 
     def dependencies(self):
-        if not self._dependencies_widget:
-            self._dependencies_widget = SnailDependenciesWidget(self.iface.mainWindow())
-
         self._dependencies_widget.show()
 
     def run(self):
@@ -235,8 +238,4 @@ class Snail(object):
             self._dockwidget.show()
 
     def settings(self):
-
-        if not self._settingswidget:
-            self._settingswidget = SnailSettingsWidget()
-
         self._settingswidget.show()
