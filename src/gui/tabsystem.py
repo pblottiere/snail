@@ -59,6 +59,8 @@ class SnailTabSystem(QtCore.QObject):
         self._ram_series_id = None
         self._last_time = None
 
+        self._cpu_checkbox = None
+
         self._settings = None
         self.read_settings()
         self.init_gui()
@@ -72,12 +74,17 @@ class SnailTabSystem(QtCore.QObject):
             self._settings = settings
         else:
             self._settings = SnailSettings.Snapshot()
+
+        if self._cpu_checkbox:
+            name = self._settings.cpu_color
+            css = "QCheckBox:indicator:checked{{background-color:{}}}".format(name)
+            self._cpu_checkbox.setStyleSheet(css)
+
         self.fake.emit()
 
     def init_gui(self):
         self._cpu_checkbox = QtWidgets.QCheckBox()
-        setting = SnailSettings.System.CpuColor
-        name = SnailSettings.get(setting, QtGui.QColor("blue").name())
+        name = self._settings.cpu_color
         css = "QCheckBox:indicator:checked{{background-color:{}}}".format(name)
         self._cpu_checkbox.setStyleSheet(css)
         self._cpu_checkbox.setChecked(True)
