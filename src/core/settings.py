@@ -43,6 +43,10 @@ class SnailSettings(object):
             name = SnailSettings.get(setting, QtGui.QColor("red").name())
             self.ram_color = name
 
+            setting = SnailSettings.System.BackgroundColor
+            name = SnailSettings.get(setting, QtGui.QColor("white").name())
+            self.background_color = name
+
     class System(enum.Enum):
 
         DisplayChart = "system/display_chart"
