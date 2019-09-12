@@ -126,6 +126,14 @@ class SnailTabSettingsSystem(QtCore.QObject):
         SnailSettings.set(setting, limit)
 
     @property
+    def axes_color(self):
+        return self._axes_color.color().name()
+
+    @axes_color.setter
+    def axes_color(self, color):
+        pass
+
+    @property
     def background_color(self):
         return self._background_color.color().name()
 
@@ -172,6 +180,7 @@ class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):
         snapshot.cpu_color = self._tab_system.cpu_color
         snapshot.ram_color = self._tab_system.ram_color
         snapshot.background_color = self._tab_system.background_color
+        snapshot.axes_color = self._tab_system.axes_color
         self.updated.emit(snapshot)
 
     def accept(self):

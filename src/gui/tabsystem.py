@@ -160,9 +160,7 @@ class SnailTabSystem(QtCore.QObject):
 
     @QtCore.pyqtProperty(QtGui.QColor, notify=fake)
     def axis_color(self):
-        setting = SnailSettings.System.AxisColor
-        color = SnailSettings.get(setting, QtGui.QColor("grey").name())
-        return QtGui.QColor(color)
+        return QtGui.QColor(self._settings.axes_color)
 
     @QtCore.pyqtSlot(QtCore.QObject)
     def set_cpu_series_id(self, id):
