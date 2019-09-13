@@ -10,7 +10,7 @@
 name=Snail
 qgisMinimumVersion=3.0
 description=Performance Monitoring
-version=1.0
+version=1.0.1
 author=Paul Blottiere
 email=blottiere.paul@gmail.com
 
