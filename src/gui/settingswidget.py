@@ -43,11 +43,6 @@ class SnailTabSettingsSystem(QtCore.QObject):
         self.init_gui()
 
     def init_gui(self):
-        setting = SnailSettings.System.DisplayChart
-        display_chart = SnailSettings.get(setting, True, bool)
-        checkbox = self._widget.mSystemDisplayChart
-        checkbox.setChecked(display_chart)
-
         self._cpu_color = QgsColorButton()
         self._widget.mCpuLayout.addWidget(self._cpu_color)
 
@@ -76,6 +71,11 @@ class SnailTabSettingsSystem(QtCore.QObject):
         self.read_settings()
 
     def read_settings(self):
+        setting = SnailSettings.System.DisplayChart
+        display_chart = SnailSettings.get(setting, True, bool)
+        checkbox = self._widget.mSystemDisplayChart
+        checkbox.setChecked(display_chart)
+
         setting = SnailSettings.System.CpuColor
         color = SnailSettings.get(setting, QtGui.QColor("blue"))
         self._cpu_color.setColor(QtGui.QColor(color))
@@ -124,6 +124,14 @@ class SnailTabSettingsSystem(QtCore.QObject):
         limit = self._widget.mRamWarningLimit.value()
         setting = SnailSettings.System.RamWarningLimit
         SnailSettings.set(setting, limit)
+
+    @property
+    def display_chart(self):
+        return self._widget.mSystemDisplayChart.isChecked()
+
+    @display_chart.setter
+    def display_chart(self, display):
+        pass
 
     @property
     def axes_color(self):
@@ -181,6 +189,7 @@ class SnailSettingsWidget(QtWidgets.QDialog, FORM_CLASS):
         snapshot.ram_color = self._tab_system.ram_color
         snapshot.background_color = self._tab_system.background_color
         snapshot.axes_color = self._tab_system.axes_color
+        snapshot.display_chart = self._tab_system.display_chart
         self.updated.emit(snapshot)
 
     def accept(self):

@@ -58,9 +58,11 @@ class SnailTabSystem(QtCore.QObject):
         self._cpu_series_id = None
         self._ram_series_id = None
         self._last_time = None
+        self._displayed = False
 
         self._cpu_checkbox = None
         self._ram_checkbox = None
+        self._container = None
 
         self._settings = None
         self.read_settings()
@@ -85,6 +87,28 @@ class SnailTabSystem(QtCore.QObject):
             name = self._settings.ram_color
             css = "QCheckBox:indicator:checked{{background-color:{}}}".format(name)
             self._ram_checkbox.setStyleSheet(css)
+
+        if self._container:
+            if not self._settings.display_chart and self._displayed:
+                self._widget.mChartLayout.removeWidget(self._container)
+                self._widget.mGridLayout.removeWidget(self._cpu_checkbox)
+                self._widget.mGridLayout.removeWidget(self._ram_checkbox)
+
+                self._container.hide()
+                self._cpu_checkbox.hide()
+                self._ram_checkbox.hide()
+
+                self._displayed = False
+            elif self._settings.display_chart and not self._displayed:
+                self._widget.mChartLayout.addWidget(self._container)
+                self._widget.mGridLayout.addWidget(self._cpu_checkbox, 0, 0)
+                self._widget.mGridLayout.addWidget(self._ram_checkbox, 2, 0)
+
+                self._container.show()
+                self._cpu_checkbox.show()
+                self._ram_checkbox.show()
+
+                self._displayed = True
 
         self.fake.emit()
 
@@ -117,8 +141,8 @@ class SnailTabSystem(QtCore.QObject):
         self._container = QtWidgets.QWidget.createWindowContainer(self._view)
         self._container.setMinimumHeight(80)
         layout = self._widget.mChartLayout
-        setting = SnailSettings.System.DisplayChart
-        if SnailSettings.get(setting, True, bool):
+        if self._settings.display_chart:
+            self._displayed = True
             layout.addWidget(self._container)
 
             self._widget.mGridLayout.addWidget(self._cpu_checkbox, 0, 0)
