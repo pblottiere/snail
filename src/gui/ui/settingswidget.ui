@@ -21,7 +21,7 @@
      </property>
      <widget class="QWidget" name="System">
       <attribute name="title">
-       <string>System</string>
+       <string>QGIS</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
