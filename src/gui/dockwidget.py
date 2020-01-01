@@ -28,7 +28,7 @@ import os
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import pyqtSignal
 
-from .tabsystem import SnailTabSystem
+from .tabqgis import SnailTabQGIS
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dockwidget.ui'))
@@ -43,7 +43,7 @@ class SnailDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         super().__init__(parent)
         self.setupUi(self)
 
-        self._tab_system = SnailTabSystem(parent, self, iface)
+        self._tab_system = SnailTabQGIS(parent, self, iface)
 
     def read_settings(self, settings=None):
         self._tab_system.read_settings(settings)

@@ -39,13 +39,13 @@ from snail.src.core import SnailThreadPs
 from snail.src.core import SnailSettings
 
 
-class SnailTabSystem(QtCore.QObject):
+class SnailTabQGIS(QtCore.QObject):
 
     fake = QtCore.pyqtSignal()
     y_maximum_updated = QtCore.pyqtSignal(int)
 
     def __init__(self, parent, widget, iface):
-        super(SnailTabSystem, self).__init__()
+        super(SnailTabQGIS, self).__init__()
 
         self.parent = parent
         self._iface = iface
